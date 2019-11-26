@@ -5,3 +5,7 @@ checkpoints/
 *.pth
 *.jpg
 SUBMISSION*
+*.npz
+*.npy
+*.ivh
+*.png
