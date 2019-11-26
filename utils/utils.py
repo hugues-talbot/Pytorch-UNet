@@ -51,13 +51,15 @@ def split_train_val(dataset, val_percent=0.05):
 
 ## better normalize
 def normalize(x,method='clahe'):
-    print("** x.shape=",x.shape)
     immin = np.min(x)
     immax = np.max(x)
     if (immax > immin):
         if (method=='clahe'):
             x2 = ((x-immin) / (immax-immin))
-            return(clahe(x2,nbins=256))
+            for i in range(x2.shape[0]):
+                clares = clahe(x2[i,:,:])
+                x2[i,:,:] = clares
+            return (x2)
         else:
             return ((x-np.min(x)) / (np.max(x)-np.min(x)))
     else:
