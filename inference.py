@@ -46,5 +46,5 @@ c=shlex.split(cmd)
 # In[78]:
 
 
-subprocess.run(c,capture_output=True)
+subprocess.run(c,stderr=subprocess.STDOUT)
 

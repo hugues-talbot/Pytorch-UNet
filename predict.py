@@ -107,6 +107,7 @@ def mask_to_image(mask):
 
 
 if __name__ == "__main__":
+    logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
     args = get_args()
     in_files = args.input
     out_files = get_output_filenames(args)
