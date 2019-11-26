@@ -2,6 +2,8 @@ import random
 
 import numpy as np
 
+import skimage
+from skimage.exposure import equalize_adapthist as clahe
 
 def hwc_to_chw(img):
     return np.transpose(img, axes=[2, 0, 1])
@@ -48,8 +50,11 @@ def split_train_val(dataset, val_percent=0.05):
 
 
 ## better normalize
-def normalize(x):
-    return ((x-np.min(x)) / (np.max(x)-np.min(x)))
+def normalize(x,method='clahe'):
+    if (method=='clahe'):
+        return((256*clahe(x,nbins=256)).astype(np.uint8))
+    else:
+        return ((x-np.min(x)) / (np.max(x)-np.min(x)))
 
 
 # credits to https://stackoverflow.com/users/6076729/manuel-lagunas
