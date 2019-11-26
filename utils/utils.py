@@ -47,8 +47,9 @@ def split_train_val(dataset, val_percent=0.05):
     return {'train': dataset[:-n], 'val': dataset[-n:]}
 
 
+## better normalize
 def normalize(x):
-    return x / 255
+    return ((x-np.min(x)) / (np.max(x)-np.min(x)))
 
 
 # credits to https://stackoverflow.com/users/6076729/manuel-lagunas

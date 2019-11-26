@@ -134,11 +134,12 @@ if __name__ == '__main__':
 
     # Change here to adapt to your data
     # n_channels=3 for RGB images
+    # n_channels=1 for Grey-level images
     # n_classes is the number of probabilities you want to get per pixel
     #   - For 1 class and background, use n_classes=1
     #   - For 2 classes, use n_classes=1
     #   - For N > 2 classes, use n_classes=N
-    net = UNet(n_channels=3, n_classes=1)
+    net = UNet(n_channels=1, n_classes=1)
     logging.info(f'Network:\n'
                  f'\t{net.n_channels} input channels\n'
                  f'\t{net.n_classes} output channels (classes)\n'
