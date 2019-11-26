@@ -51,6 +51,7 @@ def split_train_val(dataset, val_percent=0.05):
 
 ## better normalize
 def normalize(x,method='clahe'):
+    print("** x.shape=",x.shape)
     immin = np.min(x)
     immax = np.max(x)
     if (immax > immin):
