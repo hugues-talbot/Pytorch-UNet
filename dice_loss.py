@@ -1,4 +1,4 @@
-import torch
+simport torch
 from torch.autograd import Function
 
 
