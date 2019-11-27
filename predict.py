@@ -23,8 +23,8 @@ def predict_img(net,
     img_height = full_img.size[1]
 
     img = resize_and_crop(full_img, scale=scale_factor)
-    img = normalize(img)
     img = hwc_to_chw(img)
+    img = normalize(img)
 
     X = torch.from_numpy(img).unsqueeze(0)
 
