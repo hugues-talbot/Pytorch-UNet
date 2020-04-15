@@ -84,9 +84,10 @@ By default, the `scale` is 0.5, so if you wish to obtain better results (but use
 
 The input images and target masks should be in the `data/imgs` and `data/masks` folders respectively.
 
+## Tensorboard
+You can visualize in real time the train and test losses, along with the model predictions with tensorboard:
 
-## Dependencies
-This package depends on [pydensecrf](https://github.com/lucasb-eyer/pydensecrf), available via `pip install`.
+`tensorboard --logdir=runs`
 
 ## Notes on memory
 
@@ -100,3 +101,21 @@ This assumes you use bilinear up-sampling, and not transposed convolution in the
 Original paper by Olaf Ronneberger, Philipp Fischer, Thomas Brox: [https://arxiv.org/abs/1505.04597](https://arxiv.org/abs/1505.04597)
 
 ![network architecture](https://i.imgur.com/jeDVpqF.png)
+
+## Note on merging with upstream
+
+https://reflectoring.io/github-fork-and-pull/
+
+Other developers don’t sleep while you are coding. Thus, it may happen that while you are editing your fork (step #3) other changes are made to the original repository. To fetch these changes into your fork, use these commands in your fork workspace:
+
+# add the original repository as remote repository called "upstream"
+git remote add upstream https://github.com/OWNER/REPOSITORY.git
+
+# fetch all changes from the upstream repository
+git fetch upstream
+
+# switch to the master branch of your fork
+git checkout master
+
+# merge changes from the upstream repository into your fork
+git merge upstream/master
