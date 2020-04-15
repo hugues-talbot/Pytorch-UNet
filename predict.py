@@ -11,6 +11,7 @@ import torch.nn.functional as F
 from unet import UNet
 from utils.data_vis import plot_img_and_mask
 from utils.dataset import BasicDataset
+#from utils import resize_and_crop, normalize, hwc_to_chw, dense_crf
 from utils.crf import dense_crf
 
 
@@ -21,12 +22,20 @@ def predict_img(net,
                 out_threshold=0.5,
                 use_dense_crf=False):
     net.eval()
+    img_height = full_img.size[1]
 
-    ds = BasicDataset('', '', scale=scale_factor)
+    # img = resize_and_crop(full_img, scale=scale_factor)
+    # img = hwc_to_chw(img)
+    # img = normalize(img)
+    
+    ds = BasicDataset('.', '.', scale=scale_factor)
     img = ds.preprocess(full_img)
 
-    img = img.unsqueeze(0)
+    img = torch.from_numpy(img).unsqueeze(0)
     img = img.to(device=device, dtype=torch.float32)
+
+    # img = img.unsqueeze(0)
+    # img = img.to(device=device, dtype=torch.float32)
 
     with torch.no_grad():
         output = net(img)
@@ -41,7 +50,7 @@ def predict_img(net,
         tf = transforms.Compose(
             [
                 transforms.ToPILImage(),
-                transforms.Resize(full_img.shape[1]),
+                transforms.Resize(full_img.size[1]),
                 transforms.ToTensor()
             ]
         )
@@ -104,6 +113,7 @@ def mask_to_image(mask):
 
 
 if __name__ == "__main__":
+    logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
     args = get_args()
     in_files = args.input
     out_files = get_output_filenames(args)
