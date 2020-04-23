@@ -18,7 +18,7 @@ from utils.crf import dense_crf
 def predict_img(net,
                 full_img,
                 device,
-                scale_factor=1,
+                scale_factor=1.0,
                 out_threshold=0.5,
                 use_dense_crf=False):
     net.eval()
@@ -87,6 +87,9 @@ def get_args():
     parser.add_argument('--scale', '-s', type=float,
                         help="Scale factor for the input images",
                         default=0.5)
+    parser.add_argument('--force-cpu', '-c', action='store_true',
+			help="Force CPU usage even if GPU is available",
+			default=False)
 
     return parser.parse_args()
 
@@ -122,7 +125,8 @@ if __name__ == "__main__":
 
     logging.info("Loading model {}".format(args.model))
 
-    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+    device = torch.device('cuda' if (not args.force_cpu and torch.cuda.is_available()) else 'cpu')
+
     logging.info(f'Using device {device}')
     net.to(device=device)
     net.load_state_dict(torch.load(args.model, map_location=device))

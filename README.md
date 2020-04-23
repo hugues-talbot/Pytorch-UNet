@@ -1,10 +1,56 @@
 # UNet: semantic segmentation with PyTorch
 
-Adapted to segment radar images.
+Adapted for the segmentation of radar images.
 Hugues Talbot November 19 2019.
 
+## How to train
+
+1- make sure data/input and data/masks point to the training data
+
+2- run the following command:
+
+python ./train.py --help
+
+usage: train.py [-h] [-e E] [-b [B]] [-l [LR]] [-f LOAD] [-s SCALE] [-v VAL]                    
+                                                                                               
+Train the UNet on images and target masks                                                       
+                                                                                                
+optional arguments:                                                                             
+  -h, --help            show this help message and exit                                         
+  -e E, --epochs E      Number of epochs (default: 5)                                           
+  -b [B], --batch-size [B]                                                                      
+                        Batch size (default: 1)                                                 
+  -l [LR], --learning-rate [LR]                                                                 
+                        Learning rate (default: 0.1)                                            
+  -f LOAD, --load LOAD  Load model from a .pth file (default: False)                            
+  -s SCALE, --scale SCALE                                                                       
+                        Downscaling factor of the images (default: 1.0)                         
+  -v VAL, --validation VAL                                                                      
+                        Percent of the data that is used as validation (0-100)                  
+                        (default: 15.0)                                     
 
 
+3- we recommend:
+
+python ./train.py -e 100 -b 1
+
+i.e: 100 epoch and a batch-size of 1. There is not enough data in the training set for large batch sizes
+
+4- The training works at about 30 images per second. There are 1066 images in the training set (85% of the total number of labeled images), so it takes about 35s per epoch. 100 epochs therefore take about 30mn
+
+5- On the present training data, the expected final Dice should be around 0.65.
+
+
+
+## How to test
+
+- select a good trained model (see below)
+- select a series of input data, e.g. in the example below data/input/Video_20190327_ant7_???.png
+- run the following command from the top directory (containing predict.py)
+
+time python ./predict.py  --model models/MODEL_dice_0_67.pth --input data/input/Video_2019327_ant7_???.png
+
+- The results will be in data/input/Video_20190327_ant7_???_OUT.png
 
 
 ## This is the original README
