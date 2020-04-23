@@ -2,6 +2,11 @@
 
 Adapted for the segmentation of radar images.
 Hugues Talbot November 19 2019.
+Latest version: April 23, 2020.
+
+1- Make sure you have a recent enough version of Python, pytorch, etc. Everything is specified in Pytorch-UNet/requirements.txt
+
+we recommend you install [miniconda](https://docs.conda.io/en/latest/miniconda.html)
 
 ## How to train
 
@@ -9,6 +14,7 @@ Hugues Talbot November 19 2019.
 
 2- run the following command:
 
+```
 python ./train.py --help
 
 usage: train.py [-h] [-e E] [-b [B]] [-l [LR]] [-f LOAD] [-s SCALE] [-v VAL]                    
@@ -28,11 +34,11 @@ optional arguments:
   -v VAL, --validation VAL                                                                      
                         Percent of the data that is used as validation (0-100)                  
                         (default: 15.0)                                     
-
+```
 
 3- we recommend:
 
-python ./train.py -e 100 -b 1
+`python ./train.py -e 100 -b 1`
 
 i.e: 100 epoch and a batch-size of 1. There is not enough data in the training set for large batch sizes
 
@@ -45,13 +51,21 @@ i.e: 100 epoch and a batch-size of 1. There is not enough data in the training s
 ## How to test
 
 - select a good trained model (see below)
-- select a series of input data, e.g. in the example below data/input/Video_20190327_ant7_???.png
+- select a series of input data, e.g. in the example below `data/input/Video_20190327_ant7_???.png`
 - run the following command from the top directory (containing predict.py)
 
-time python ./predict.py  --model models/MODEL_dice_0_67.pth --input data/input/Video_2019327_ant7_???.png
+`time python ./predict.py  --model models/MODEL_dice_0_67.pth --input data/input/Video_2019327_ant7_???.png`
 
-- The results will be in data/input/Video_20190327_ant7_???_OUT.png
+- The results will be in `data/input/Video_20190327_ant7_???_OUT.png`
 
+
+## In case of problems
+
+Please report problems via github, so we can track them [here](https://github.com/hugues-talbot/Pytorch-UNet)
+
+
+# This is free software (as in free speech)
+Note however that the models weights produced by this software are your own, and the models are standard
 
 ## This is the original README
 
